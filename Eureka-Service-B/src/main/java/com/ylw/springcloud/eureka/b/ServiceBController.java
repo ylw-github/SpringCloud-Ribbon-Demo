@@ -3,6 +3,7 @@ package com.ylw.springcloud.eureka.b;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,15 @@ public class ServiceBController {
 
         String serviceUrl = getServiceUrl() + "/getMember";
         return "请求地址为 -> " + serviceUrl;
+    }
+
+    @RequestMapping("/getOrder")
+    public String getOrder() {
+
+        String serviceUrl = getServiceUrl() + "/getMember";
+        ResponseEntity<String> response = restTemplate.getForEntity(serviceUrl, String.class);
+        System.out.println("statusCode:" + response.getStatusCode());
+        return "Body -> " + response.getBody();
     }
 
     @RequestMapping("/getServiceUrl")
